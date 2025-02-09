@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <title>AR Glasses Video</title>
+        <style>
+            body {
+                background-color: black;
+                color: greenyellow; 
+                height: 200vh; 
+            }
+            #inputContainer {
+                position: absolute;
+                bottom: -100vh; 
+                left: 10px;
+            }
+            #displayContainer {
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                font-size: 60px; 
+            }
+            .radar {
+                position: absolute;
+                top: 30px;
+                right: 30px;
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+                --border-size: 3px;
+                --border-angle: 0turn;
+                --grid-bg: radial-gradient(
+                    transparent 69%,
+                    limegreen 69%,
+                    limegreen 70%,
+                    transparent 70%
+                );
+                --line-bg: transparent 50%, limegreen 50%, transparent 50.5%;
+                background-image: conic-gradient(from var(--border-angle), transparent 10%, #0d0a 99%, limegreen 99.5%), linear-gradient(0deg, var(--line-bg)), linear-gradient(45deg, var(--line-bg)), linear-gradient(90deg, var(--line-bg)), linear-gradient(135deg, var(--line-bg)), var(--grid-bg), var(--grid-bg), var(--grid-bg);
+                background-size: cover, cover, cover, cover, cover, 25% 25%, 50% 50%, 75% 75%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                border: solid 2px limegreen;
+                -webkit-animation: bg-spin 3s linear infinite;
+                        animation: bg-spin 3s linear infinite;
+                filter: drop-shadow(0px 0px 30px black) blur(0.5px) contrast(200%);
+            }
+            @-webkit-keyframes bg-spin {
+                to {
+                    --border-angle: 1turn;
+                }
+            }
+            @keyframes bg-spin {
+                to {
+                    --border-angle: 1turn;
+                }
+            }
+            .radar::after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 6px;
+                height: 6px;
+                background: limegreen;
+                border-radius: 50%;
+                -webkit-animation: move 18s steps(6) infinite;
+                        animation: move 18s steps(6) infinite;
+            }
+            
+            .radar::before {
+                content: "";
+                display: block;
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                border: solid 3px limegreen;
+                -webkit-animation: scale 3s linear infinite;
+                        animation: scale 3s linear infinite;
+            }
+            @-webkit-keyframes scale {
+                from {
+                    transform: scale(0);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+                51%, 100% {
+                    opacity: 0;
+                }
+            }
+            @keyframes scale {
+                from {
+                    transform: scale(0);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+                51%, 100% {
+                    opacity: 0;
+                }
+            }
+
+            @property --border-angle {
+                syntax: "<angle>";
+                inherits: true;
+                initial-value: 0turn;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="displayContainer"></div>
+        <div id="inputContainer">
+            <input type="text" id="userInput" placeholder="Enter text here">
+            <button onclick="displayText()">Submit</button>
+        </div>
+        <div class="radar"></div>
+        <script>
+            function displayText() {
+                var input = document.getElementById('userInput').value;
+                document.getElementById('displayContainer').innerText = input;
+            }
+        </script>
+    </body>
+</html>
